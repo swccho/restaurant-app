@@ -34,15 +34,18 @@ class MenuItemResource extends Resource
                             ->maxLength(255)
                             ->live(onBlur: true)
                             ->afterStateUpdated(fn (string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', \Illuminate\Support\Str::slug($state)) : null)
-                            ->placeholder('e.g. Cappuccino'),
+                            ->placeholder('e.g. Cappuccino')
+                            ->helperText('Display name for this item.'),
                         Forms\Components\TextInput::make('slug')
                             ->required()
                             ->maxLength(255)
-                            ->unique(ignoreRecord: true)
-                            ->placeholder('e.g. cappuccino'),
+                            ->unique(MenuItem::class, 'slug', ignoreRecord: true)
+                            ->placeholder('e.g. cappuccino')
+                            ->helperText('URL-friendly identifier. Auto-generated from name on create.'),
                         Forms\Components\Textarea::make('description')
                             ->rows(3)
-                            ->placeholder('Short description of the item.'),
+                            ->placeholder('Short description of the item.')
+                            ->helperText('Optional. Shown on the menu.'),
                     ])
                     ->columns(1),
 
@@ -53,7 +56,8 @@ class MenuItemResource extends Resource
                             ->searchable()
                             ->preload()
                             ->required()
-                            ->placeholder('Select category'),
+                            ->placeholder('Select category')
+                            ->helperText('Required. Items are grouped by category.'),
                     ]),
 
                 Forms\Components\Section::make('Pricing')
@@ -64,20 +68,27 @@ class MenuItemResource extends Resource
                             ->minValue(0.01)
                             ->step(0.01)
                             ->prefix('$')
-                            ->placeholder('0.00'),
+                            ->placeholder('0.00')
+                            ->helperText('Unit price. Minimum 0.01.'),
                     ]),
 
                 Forms\Components\Section::make('Status')
                     ->schema([
                         Forms\Components\Toggle::make('is_available')
+                            ->label('Available')
                             ->default(true)
-                            ->required(),
+                            ->required()
+                            ->helperText('Unavailable items are hidden from the menu.'),
                         Forms\Components\Toggle::make('is_featured')
-                            ->default(false),
+                            ->label('Featured')
+                            ->default(false)
+                            ->helperText('Show in featured section if applicable.'),
                         Forms\Components\TextInput::make('sort_order')
+                            ->label('Sort order')
                             ->numeric()
                             ->default(0)
-                            ->minValue(0),
+                            ->minValue(0)
+                            ->helperText('Lower numbers appear first.'),
                     ])
                     ->columns(3),
 
@@ -116,17 +127,18 @@ class MenuItemResource extends Resource
                 Tables\Columns\TextColumn::make('price')
                     ->money()
                     ->sortable(),
-                Tables\Columns\IconColumn::make('is_available')
-                    ->boolean()
+                Tables\Columns\ToggleColumn::make('is_available')
+                    ->label('Available')
                     ->sortable(),
-                Tables\Columns\IconColumn::make('is_featured')
-                    ->boolean()
+                Tables\Columns\ToggleColumn::make('is_featured')
+                    ->label('Featured')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable(),
             ])
             ->defaultSort('sort_order', 'asc')
+            ->striped()
             ->filters([
                 Tables\Filters\SelectFilter::make('category_id')
                     ->relationship('category', 'name')
@@ -163,7 +175,7 @@ class MenuItemResource extends Resource
                 ]),
             ])
             ->emptyStateHeading('No menu items yet.')
-            ->emptyStateDescription('Create your first menu item to get started.');
+            ->emptyStateDescription('Add your first item to build the menu.');
     }
 
     public static function getPages(): array
@@ -177,6 +189,8 @@ class MenuItemResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->orderBy('sort_order');
+        return parent::getEloquentQuery()
+            ->with('category')
+            ->orderBy('sort_order');
     }
 }

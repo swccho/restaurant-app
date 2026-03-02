@@ -30,6 +30,7 @@ class CategoryResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255)
+                    ->unique(Category::class, 'name', ignoreRecord: true)
                     ->live(onBlur: true)
                     ->afterStateUpdated(fn (string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', \Illuminate\Support\Str::slug($state)) : null)
                     ->placeholder('e.g. Beverages')
@@ -37,7 +38,7 @@ class CategoryResource extends Resource
                 Forms\Components\TextInput::make('slug')
                     ->required()
                     ->maxLength(255)
-                    ->unique(ignoreRecord: true)
+                    ->unique(Category::class, 'slug', ignoreRecord: true)
                     ->placeholder('e.g. beverages')
                     ->helperText('URL-friendly identifier. Auto-generated from name if left empty.'),
                 Forms\Components\TextInput::make('sort_order')
@@ -46,6 +47,7 @@ class CategoryResource extends Resource
                     ->minValue(0)
                     ->helperText('Lower numbers appear first.'),
                 Forms\Components\Toggle::make('is_active')
+                    ->label('Active')
                     ->default(true)
                     ->required()
                     ->helperText('Inactive categories are hidden from the menu.'),
@@ -63,6 +65,7 @@ class CategoryResource extends Resource
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\ToggleColumn::make('is_active')
+                    ->label('Active')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('sort_order')
                     ->sortable(),
@@ -71,6 +74,7 @@ class CategoryResource extends Resource
                     ->sortable(),
             ])
             ->defaultSort('sort_order', 'asc')
+            ->striped()
             ->filters([
                 Tables\Filters\TernaryFilter::make('is_active')
                     ->label('Status')
@@ -88,7 +92,7 @@ class CategoryResource extends Resource
                 ]),
             ])
             ->emptyStateHeading('No categories yet.')
-            ->emptyStateDescription('Create your first category to get started.');
+            ->emptyStateDescription('Add your first category to organize the menu.');
     }
 
     public static function getPages(): array

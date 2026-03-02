@@ -40,6 +40,22 @@ Laravel + Filament admin panel for restaurant management (categories, menu items
    - App: http://127.0.0.1:8000  
    - Admin: http://127.0.0.1:8000/admin (login with owner/staff account)
 
+5. **Code quality**
+   ```bash
+   composer format   # Laravel Pint
+   composer lint     # Pint --test
+   ```
+
+---
+
+### Deployment Notes (Admin MVP)
+
+- **Environment:** Copy `.env.example` to `.env` on the server. Set `APP_ENV=production`, `APP_DEBUG=false`, and real `APP_URL`. Do not commit `.env`.
+- **Caching:** Run `php artisan config:cache` and `php artisan route:cache` after deployment.
+- **Storage:** Run `php artisan storage:link`. Ensure `storage/app/public` and `bootstrap/cache` are writable by the web server.
+- **Queue:** Not required for MVP (synchronous processing). If you enable queues later, run `php artisan queue:work`.
+- **Seeding:** Use `php artisan migrate:fresh --seed` only for fresh installs; otherwise `php artisan migrate --force`.
+
 ---
 
 ## About Laravel

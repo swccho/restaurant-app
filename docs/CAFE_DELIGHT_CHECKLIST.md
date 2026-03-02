@@ -52,74 +52,74 @@
 - [x] 28. Enforce slug uniqueness + auto strategy
 - [x] 29. Add soft deletes (migration, trait, Trashed filter, restore)
 - [x] 30. Manual QA for Menu Items module
-- [ ] 31. Mark Menu Items module complete
+- [x] 31. Mark Menu Items module complete
 
 ---
 
 ## 🎯 Phase 4 — Offers Module
 
-- [ ] 32. Create offers migration
-- [ ] 33. Create Offer model
-- [ ] 34. Create OfferType enum
-- [ ] 35. Create OfferScope enum
-- [ ] 36. Create OfferResource
-- [ ] 37. Add start/end date validation
-- [ ] 38. Add conditional fields by scope
-- [ ] 39. Add active toggle
-- [ ] 40. Test offer CRUD
-- [ ] 41. Mark Offers module complete
+- [x] 32. Create offers migration
+- [x] 33. Create Offer model
+- [x] 34. Create OfferType enum
+- [x] 35. Create OfferScope enum
+- [x] 36. Create OfferResource
+- [x] 37. Add start/end date validation
+- [x] 38. Add conditional fields by scope
+- [x] 39. Add value rules per type
+- [x] 40. Manual QA for Offers module
+- [x] 41. Mark Offers module complete
 
 ---
 
 ## 🧾 Phase 5 — Orders Module
 
-- [ ] 42. Create orders migration
-- [ ] 43. Create order_items migration
-- [ ] 44. Create Order model + relationships
-- [ ] 45. Create OrderStatus enum
-- [ ] 46. Add snapshot fields in order_items
-- [ ] 47. Create OrderResource (read-focused)
-- [ ] 48. Add status badge column
-- [ ] 49. Add status update action
-- [ ] 50. Add order filters (status tabs)
-- [ ] 51. Add print-friendly view
-- [ ] 52. Test order workflow transitions
-- [ ] 53. Mark Orders module complete
+- [x] 42. Create orders migration
+- [x] 43. Create order_items migration
+- [x] 44. Create Order model + relationships
+- [x] 45. Create OrderItem model
+- [x] 46. Create OrderStatus enum (label, color, canTransitionTo)
+- [x] 47. Add order code generator (OrderCodeService)
+- [x] 48. Create OrderResource (list + view, items relation manager)
+- [x] 49. Add status update action with workflow rules
+- [x] 50. Add status tabs (All + per-status with badge)
+- [x] 51. Add print-friendly view
+- [x] 52. Test order workflow transitions (order list perf: select columns, pagination 25/50)
+- [x] 53. Mark Orders module complete
 
 ---
 
 ## 🛡️ Phase 6 — Security & Validation
 
-- [ ] 54. Add policies where required
-- [ ] 55. Restrict staff permissions properly
-- [ ] 56. Validate all required fields
-- [ ] 57. Prevent invalid status transitions
-- [ ] 58. Add database indexes
-- [ ] 59. Remove debug code
-- [ ] 60. Mark Security phase complete
+- [x] 54. Add policies where required (Category, MenuItem, Offer, Order)
+- [x] 55. Restrict staff permissions properly (owner-only: delete category/order, forceDelete)
+- [x] 56. Validate all required fields (categories name/slug unique; menu/offers/order rules)
+- [x] 57. Prevent invalid status transitions (OrderStatusService single source of truth)
+- [x] 58. Add database indexes (composite indexes migration) + status_updated_by audit
+- [x] 59. Remove debug code (no dd/dump; .env in .gitignore)
+- [x] 60. Mark Security phase complete — **Manual review:** guests/no-role blocked from /admin; staff restrictions; CSRF intact; no public admin routes
 
 ---
 
 ## 🎨 Phase 7 — UI Consistency
 
-- [ ] 61. Standardize badge colors
-- [ ] 62. Standardize toggle styling
-- [ ] 63. Ensure empty states have messages
-- [ ] 64. Ensure responsive layout
-- [ ] 65. Clean spacing + sections
-- [ ] 66. Final UI review pass
-- [ ] 67. Mark UI phase complete
+- [x] 61. Standardize badge colors (OrderStatus, OfferType, OfferScope enum color(); resources use enum only)
+- [x] 62. Standardize toggle styling (ToggleColumn + labels; form toggles with helper text)
+- [x] 63. Ensure empty states have messages (friendly copy on all four resources)
+- [x] 64. Ensure responsive layout (striped tables; Filament default sidebar/forms)
+- [x] 65. Clean spacing + sections (helper text on forms; consistent sections)
+- [x] 66. Final UI review pass (nav labels/icons; cohesive tables and forms)
+- [x] 67. Mark UI phase complete (Pint, no pending migrations)
 
 ---
 
 ## 🚀 Phase 8 — Finalization
 
-- [ ] 68. Run full manual admin flow test
-- [ ] 69. Optimize queries where needed
-- [ ] 70. Run Pint formatting
-- [ ] 71. Clean unused imports/files
-- [ ] 72. Final production config check
-- [ ] 73. Final commit: Admin Panel MVP Complete
+- [x] 68. Run full manual admin flow test (owner + staff; see test script in step)
+- [x] 69. Optimize queries where needed (MenuItemResource eager load category; orders already scoped)
+- [x] 70. Run Pint formatting (composer format / composer lint)
+- [x] 71. Clean unused imports/files (.env not committed; .env.example + README deployment notes)
+- [x] 72. Final production config check (config:cache, route:cache; README deployment notes)
+- [x] 73. Final commit: Admin Panel MVP Complete (migrate:fresh --seed, lint; optional tag v1.0-admin-mvp)
 
 ---
 
