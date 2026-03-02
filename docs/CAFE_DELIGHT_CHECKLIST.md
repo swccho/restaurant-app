@@ -20,7 +20,7 @@
 - [x] 7. Install Laravel Pint (code formatter)
 - [x] 8. Create base roles (owner, staff)
 - [x] 9. Protect Filament panel by role
-- [ ] 10. Create initial admin user (owner role)
+- [x] 10. Create initial admin user (owner role)
 - [ ] 11. Verify admin login works
 - [ ] 12. Commit clean base setup
 
