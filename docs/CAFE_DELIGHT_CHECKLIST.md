@@ -21,21 +21,22 @@
 - [x] 8. Create base roles (owner, staff)
 - [x] 9. Protect Filament panel by role
 - [x] 10. Create initial admin user (owner role)
-- [ ] 11. Verify admin login works
-- [ ] 12. Commit clean base setup
+- [x] 11. Add .env.example + README local setup
+- [x] 12. Clean baseline commit
+- [ ] Verify admin login works (manual)
 
 ---
 
 ## 📂 Phase 2 — Categories Module
 
-- [ ] 13. Create categories migration
-- [ ] 14. Create Category model + relationships
-- [ ] 15. Create CategoryResource (Filament)
-- [ ] 16. Add form validation rules
-- [ ] 17. Add searchable/sortable table
-- [ ] 18. Add unique name constraint
-- [ ] 19. Test create/edit/delete
-- [ ] 20. Mark Categories module complete
+- [x] 13. Create categories migration
+- [x] 14. Create Category model + relationships
+- [x] 15. Create CategoryResource (Filament)
+- [x] 16. Add form validation + UX (helper text, slug normalise)
+- [x] 17. Add filters + table enhancements (active filter, toggle, empty state)
+- [x] 18. Enforce unique slug (DB index, ignore on edit, auto-generate, suffix)
+- [x] 19. Manual QA (Categories)
+- [x] 20. Finalize Categories module (Pint, no debug)
 
 ---
 

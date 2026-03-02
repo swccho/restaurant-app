@@ -6,10 +6,11 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 
-class RolesSeeder extends Seeder
+class RoleSeeder extends Seeder
 {
     /**
-     * Create owner and staff roles, assign owner to existing admin users.
+     * Create base roles (owner, staff). Idempotent — safe to run multiple times.
+     * Assigns owner role to users who do not yet have a role.
      */
     public function run(): void
     {

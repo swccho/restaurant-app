@@ -7,6 +7,41 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Cafe Delight — Admin Panel
+
+Laravel + Filament admin panel for restaurant management (categories, menu items, offers, orders).
+
+### Local setup
+
+1. **Clone and install**
+   ```bash
+   composer install
+   cp .env.example .env
+   php artisan key:generate
+   ```
+
+2. **Database**
+   - Create a MySQL database (e.g. `cafe_delight`).
+   - Set `DB_*` in `.env` (database name, user, password).
+   - Set admin users for seeding (optional):
+     - `ADMIN_OWNER_EMAIL`, `ADMIN_OWNER_PASSWORD`
+     - `ADMIN_STAFF_EMAIL`, `ADMIN_STAFF_PASSWORD`
+
+3. **Migrate and seed**
+   ```bash
+   php artisan migrate --seed
+   php artisan storage:link
+   ```
+
+4. **Run**
+   ```bash
+   php artisan serve
+   ```
+   - App: http://127.0.0.1:8000  
+   - Admin: http://127.0.0.1:8000/admin (login with owner/staff account)
+
+---
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
