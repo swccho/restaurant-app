@@ -14,8 +14,8 @@
 - [x] 1. Install fresh Laravel project
 - [x] 2. Configure .env (DB connection, app name)
 - [ ] 3. Install Filament and set up admin panel
-- [ ] 4. Install spatie/laravel-permission
-- [ ] 5. Install Spatie Media Library
+- [x] 4. Install spatie/laravel-permission
+- [x] 5. Install Spatie Media Library
 - [ ] 6. Configure storage (public disk + storage:link)
 - [ ] 7. Install Laravel Pint (code formatter)
 - [ ] 8. Create base roles (owner, staff)
