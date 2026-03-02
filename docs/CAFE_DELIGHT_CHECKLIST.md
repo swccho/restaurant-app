@@ -12,7 +12,7 @@
 ## 🏗️ Phase 1 — Project Setup
 
 - [x] 1. Install fresh Laravel project
-- [ ] 2. Configure .env (DB connection, app name)
+- [x] 2. Configure .env (DB connection, app name)
 - [ ] 3. Install Filament and set up admin panel
 - [ ] 4. Install spatie/laravel-permission
 - [ ] 5. Install Spatie Media Library
