@@ -42,16 +42,16 @@
 
 ## 🍔 Phase 3 — Menu Items Module
 
-- [ ] 21. Create menu_items migration
-- [ ] 22. Create MenuItem model + relationships
-- [ ] 23. Integrate Media Library with MenuItem
-- [ ] 24. Create MenuItemResource
-- [ ] 25. Add image upload field
-- [ ] 26. Add availability toggle
-- [ ] 27. Add featured toggle
-- [ ] 28. Add category filter in table
-- [ ] 29. Add price validation (> 0)
-- [ ] 30. Test full CRUD with images
+- [x] 21. Create menu_items migration
+- [x] 22. Create MenuItem model + relationships
+- [x] 23. Integrate Media Library with MenuItem (menu_images, single, images only)
+- [x] 24. Create MenuItemResource (form sections, table, image column)
+- [x] 25. Add price validation + currency formatting
+- [x] 26. Add category + availability + featured filters
+- [x] 27. Add bulk actions (toggle availability, delete with confirmation)
+- [x] 28. Enforce slug uniqueness + auto strategy
+- [x] 29. Add soft deletes (migration, trait, Trashed filter, restore)
+- [x] 30. Manual QA for Menu Items module
 - [ ] 31. Mark Menu Items module complete
 
 ---
