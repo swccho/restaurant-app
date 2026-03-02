@@ -1,0 +1,198 @@
+---
+description: Cafe Delight Admin Panel — UI layout, dashboard, tables, forms, and visual consistency
+alwaysApply: true
+---
+
+# Cursor Layout Rules — Cafe Delight Admin Panel UI
+
+## 0) Prime UI Directive
+- Follow the generated layout strictly:
+  - Left dark sidebar
+  - Top header bar
+  - Clean white content area
+  - Card-based dashboard
+- Do NOT redesign structure unless explicitly instructed.
+- Keep layout consistent across ALL admin pages.
+
+---
+
+## 1) Layout Structure Rules
+
+### Sidebar (Left Navigation)
+- Fixed vertical sidebar.
+- Dark background.
+- Contains:
+  - Logo / Brand name (Cafe Delight Admin)
+  - Dashboard
+  - Categories
+  - Menu Items
+  - Offers
+  - Orders
+- Icons required for each menu item.
+- Active menu item must be visually highlighted.
+- Sidebar width must remain consistent across pages.
+
+### Top Header Bar
+- Light background.
+- Right side:
+  - Admin avatar
+  - Dropdown (Profile / Logout)
+- Page title displayed clearly below header.
+- No clutter in header.
+
+### Content Area
+- White background.
+- Consistent padding (minimum 24px).
+- Use card components for:
+  - Stats
+  - Tables
+  - Forms
+- Do not mix too many visual styles.
+
+---
+
+## 2) Dashboard Rules
+
+### Stat Cards
+- Show:
+  - New Orders
+  - Preparing
+  - Ready
+  - Total Sales
+- Each card:
+  - Has icon
+  - Colored background
+  - Large number
+  - Clear label
+- Cards must align in one row (responsive grid).
+
+### Orders Table
+- Clean table with:
+  - Order ID
+  - Customer
+  - Status badge
+  - Total
+- Status must use colored badges:
+  - received → gray
+  - preparing → blue
+  - ready → orange
+  - delivered → green
+  - cancelled → red
+
+---
+
+## 3) Table Rules (Menu / Orders / Offers)
+
+- Tables must be:
+  - Searchable
+  - Sortable
+  - Filterable
+- Use:
+  - Status filters
+  - Category filters
+  - Availability filters
+- Actions column must include:
+  - Edit
+  - View (if needed)
+  - Update Status (Orders)
+- Use toggle switches for:
+  - Availability
+  - Featured
+- Image thumbnail must be small and aligned left.
+
+---
+
+## 4) Form Rules (Create / Edit Pages)
+
+### Structure
+- Use sections:
+  - Basic Info
+  - Pricing
+  - Status
+  - Media
+- Two-column layout when possible.
+- Labels above inputs.
+- Required fields clearly marked.
+
+### Inputs
+- Text inputs for name/price.
+- Select dropdowns for:
+  - Category
+  - Offer type
+  - Offer scope
+- Toggle switches for booleans.
+- Date pickers for offer schedule.
+- Image upload preview required.
+
+### Buttons
+- Primary button: Blue ("Save")
+- Secondary button: Gray ("Cancel")
+- Buttons aligned bottom-right.
+
+---
+
+## 5) Order Management UI Rules
+
+- Must have tab filters:
+  - All
+  - Preparing
+  - Ready
+  - Delivered
+- Status badge colors must remain consistent everywhere.
+- Update status must be:
+  - Dropdown action
+  - Or modal confirmation
+- Provide Print button on order detail page.
+
+---
+
+## 6) Spacing & Typography Rules
+
+- Use consistent spacing scale.
+- Headings:
+  - Page Title: Large bold
+  - Section Title: Medium bold
+- Tables:
+  - Medium row height
+  - Clean separators
+- No crowded UI.
+
+---
+
+## 7) Consistency Rules
+
+- Same button style everywhere.
+- Same badge colors everywhere.
+- Same toggle style everywhere.
+- Same card radius everywhere.
+- No inline custom styles unless necessary.
+
+---
+
+## 8) UX Quality Rules
+
+- No broken alignment.
+- No overflowing content.
+- All forms must show validation errors clearly.
+- No empty state without message:
+  - "No orders yet"
+  - "No menu items added"
+
+---
+
+## 9) Responsive Rules
+
+- Sidebar collapses on small screens.
+- Tables scroll horizontally on mobile.
+- Cards stack vertically on small screens.
+- Forms switch to single column on mobile.
+
+---
+
+## 10) Definition of Done (UI)
+
+Admin UI is complete only if:
+- All pages follow the same layout pattern.
+- Colors and spacing are consistent.
+- No UI element looks default or unfinished.
+- Status badges and toggles behave correctly.
