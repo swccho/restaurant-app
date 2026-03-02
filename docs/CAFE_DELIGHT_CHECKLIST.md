@@ -16,10 +16,10 @@
 - [ ] 3. Install Filament and set up admin panel
 - [x] 4. Install spatie/laravel-permission
 - [x] 5. Install Spatie Media Library
-- [ ] 6. Configure storage (public disk + storage:link)
-- [ ] 7. Install Laravel Pint (code formatter)
-- [ ] 8. Create base roles (owner, staff)
-- [ ] 9. Protect Filament panel by role
+- [x] 6. Configure storage (public disk + storage:link)
+- [x] 7. Install Laravel Pint (code formatter)
+- [x] 8. Create base roles (owner, staff)
+- [x] 9. Protect Filament panel by role
 - [ ] 10. Create initial admin user (owner role)
 - [ ] 11. Verify admin login works
 - [ ] 12. Commit clean base setup

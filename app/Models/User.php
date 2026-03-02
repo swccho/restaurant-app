@@ -15,9 +15,17 @@ class User extends Authenticatable implements FilamentUser
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, HasRoles, Notifiable;
 
-    public function canAccessPanel(Panel $panel): bool
+    /**
+     * Single source of truth: only owner and staff may access the admin panel.
+     */
+    public function canAccessAdminPanel(): bool
     {
         return $this->hasRole(['owner', 'staff']);
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->canAccessAdminPanel();
     }
 
     /**
