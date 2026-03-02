@@ -1,0 +1,144 @@
+---
+description: Cafe Delight Admin Panel — Laravel + Filament constraints, DB rules, and MVP definition
+alwaysApply: true
+---
+
+# Cursor Rules — Cafe Delight Admin Panel (Laravel + Filament)
+
+## 0) Prime Directive
+- Build the **Restaurant Admin Panel ONLY** first.
+- Use **Filament** for all admin UI.
+- Keep changes **small, reviewable, and testable**.
+- Never introduce customer-portal pages/routes until admin panel MVP is complete.
+
+---
+
+## 1) Tech Constraints
+- Backend: **Laravel (latest stable)**
+- Admin UI: **Filament**
+- DB: **MySQL** (use migrations, never edit DB manually)
+- Images: **Spatie Media Library** (store to `public` disk for MVP)
+- Auth: Filament auth + **spatie/laravel-permission** for roles
+- Use Laravel **Form Requests** for non-Filament endpoints (if any).
+- Prefer **Enums** for statuses (OrderStatus, OfferType, OfferScope).
+
+---
+
+## 2) Coding Standards (MANDATORY)
+- Strict typing wherever possible (PHP 8+ features).
+- Follow PSR-12 + run **Laravel Pint** before commits.
+- No `dd()`, no debug prints, no commented-out code.
+- Keep controllers thin; push logic to:
+  - `Actions/` (single-purpose classes)
+  - `Services/` (reusable business logic)
+  - `Observers/` (only when needed)
+- Prefer query scopes in models for repeated filters.
+
+---
+
+## 3) Database & Models Rules
+- Every feature change that needs data must include:
+  - migration + model + relationships + factories (optional later)
+- Use these core tables (do not rename without reason):
+  - `categories`
+  - `menu_items`
+  - `offers`
+  - `orders`
+  - `order_items`
+- Orders must store **snapshot fields** in `order_items`:
+  - `name_snapshot`, `price_snapshot`
+  (Prices/name changes must not affect old orders.)
+- Always include `created_at/updated_at` and sensible indexes:
+  - `menu_items(category_id, is_available)`
+  - `offers(is_active, start_at, end_at)`
+  - `orders(status, created_at)`
+
+---
+
+## 4) Filament Rules (Admin UX)
+- Use Filament Resources for CRUD:
+  - CategoryResource
+  - MenuItemResource
+  - OfferResource
+  - OrderResource
+- Must include:
+  - clean navigation labels + icons
+  - searchable tables
+  - filters (status/active/category)
+  - bulk actions where safe (e.g., toggle availability)
+- Forms must:
+  - validate required fields
+  - use helpful placeholders + helper text
+  - keep layout clean (sections, columns)
+- Orders page must support:
+  - status update action
+  - print-friendly view link/action
+
+---
+
+## 5) Security & Authorization
+- Admin area must be protected:
+  - Only users with role `owner` or `staff` can access Filament.
+- Use **Policies** for models if needed.
+- Never expose admin APIs publicly.
+- Validation is required on all writes.
+
+---
+
+## 6) Business Logic Rules
+- Menu Items:
+  - `is_available` controls visibility to customers later
+  - `is_featured` used for home highlights later
+- Offers:
+  - must support schedule (start/end)
+  - must support scope (all / category / items)
+- Orders:
+  - statuses are a strict workflow:
+    `received -> preparing -> ready -> out_for_delivery -> delivered`
+    plus `cancelled`
+  - status changes must be auditable (store `status_updated_at` at least)
+
+---
+
+## 7) File/Folder Organization
+- Models: `app/Models`
+- Filament resources: `app/Filament/Resources`
+- Enums: `app/Enums`
+- Actions: `app/Actions`
+- Services: `app/Services`
+- Policies: `app/Policies`
+- Database migrations: `database/migrations`
+
+Do not create random folders.
+
+---
+
+## 8) Git Workflow Rules
+- One step = one commit.
+- Commit messages must be imperative:
+  - `feat(admin): add Category resource`
+  - `feat(admin): add MenuItem resource with images`
+  - `feat(admin): add Order status workflow`
+  - `fix(admin): validate offer date range`
+- Never mix refactors with feature work unless required.
+
+---
+
+## 9) Output Rules (How Cursor should respond)
+When implementing a step, Cursor must provide:
+- What files changed (list)
+- What was added/removed (short)
+- How to verify manually in the browser (Filament path + clicks)
+- Migration commands to run (if applicable)
+
+No long explanations, no tutorials, no unrelated improvements.
+
+---
+
+## 10) Definition of Done (Admin Panel MVP)
+Admin panel is considered "done" only when:
+- Admin can login
+- Admin can manage Categories, Menu Items (with images), Offers
+- Admin can view Orders + update status + print view
+- Role-based access is enforced
+- No obvious UI/validation gaps in admin flows
