@@ -69,6 +69,7 @@ class OrderResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->query(fn (): Builder => static::getEloquentQuery())
             ->columns([
                 Tables\Columns\TextColumn::make('order_code')
                     ->searchable()
@@ -129,7 +130,9 @@ class OrderResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()
+        $model = static::$model ?? Order::class;
+
+        return $model::query()
             ->select([
                 'id',
                 'order_code',

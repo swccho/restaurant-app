@@ -9,16 +9,32 @@ class CreateMenuItem extends CreateRecord
 {
     protected static string $resource = MenuItemResource::class;
 
+    /** Path from form state when user uploaded an image (stripped before model create). */
+    protected ?string $pendingImagePath = null;
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $path = $data['image'] ?? null;
+        if (is_array($path)) {
+            $path = array_values($path)[0] ?? null;
+        }
+        $path = is_string($path) ? trim($path) : null;
+        if ($path !== '' && $path !== null) {
+            $this->pendingImagePath = $path;
+        } else {
+            $this->pendingImagePath = null;
+        }
+        unset($data['image']);
+
+        return $data;
+    }
+
     protected function afterCreate(): void
     {
-        $data = $this->form->getState();
-        $path = $data['image'] ?? null;
-        if (filled($path)) {
-            $path = is_array($path) ? ($path[0] ?? null) : $path;
-            if ($path) {
-                $this->record->clearMediaCollection('menu_images');
-                $this->record->addMediaFromDisk($path, 'public')->toMediaCollection('menu_images');
-            }
+        if ($this->pendingImagePath === null) {
+            return;
         }
+        $this->record->addMediaFromDisk($this->pendingImagePath, 'public')->toMediaCollection('menu_images', 'public');
+        $this->pendingImagePath = null;
     }
 }

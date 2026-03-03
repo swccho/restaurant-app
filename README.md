@@ -32,6 +32,7 @@ Laravel + Filament admin panel for restaurant management (categories, menu items
    php artisan migrate --seed
    php artisan storage:link
    ```
+   - `storage:link` is required so menu item images (and other public files) are served at `/storage`. Menu item photos are stored on the public disk via Spatie Media Library.
 
 4. **Run**
    ```bash
@@ -52,7 +53,7 @@ Laravel + Filament admin panel for restaurant management (categories, menu items
 
 - **Environment:** Copy `.env.example` to `.env` on the server. Set `APP_ENV=production`, `APP_DEBUG=false`, and real `APP_URL`. Do not commit `.env`.
 - **Caching:** Run `php artisan config:cache` and `php artisan route:cache` after deployment.
-- **Storage:** Run `php artisan storage:link`. Ensure `storage/app/public` and `bootstrap/cache` are writable by the web server.
+- **Storage:** Run `php artisan storage:link`. Ensure `storage/app/public` and `bootstrap/cache` are writable by the web server. Menu item images are stored on the public disk via Spatie Media Library; without the link, list and edit image previews will not load.
 - **Queue:** Not required for MVP (synchronous processing). If you enable queues later, run `php artisan queue:work`.
 - **Seeding:** Use `php artisan migrate:fresh --seed` only for fresh installs; otherwise `php artisan migrate --force`.
 

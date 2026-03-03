@@ -101,7 +101,41 @@ class MenuItemResource extends Resource
                             ->disk('public')
                             ->directory('menu-items')
                             ->visibility('public')
-                            ->dehydrated(false)
+                            ->getUploadedFileUsing(function (Forms\Components\BaseFileUpload $component, string $file, string|array|null $storedFileNames = null, ?MenuItem $record = null): ?array {
+                                $storage = $component->getDisk();
+                                if ($storage->exists($file)) {
+                                    return [
+                                        'name' => basename($file),
+                                        'size' => $storage->size($file),
+                                        'type' => $storage->mimeType($file),
+                                        'url' => $storage->url($file),
+                                    ];
+                                }
+                                $record ??= $component->getContainer()->getRecord();
+                                if ($record === null && method_exists($component->getLivewire(), 'getRecord')) {
+                                    $record = $component->getLivewire()->getRecord();
+                                }
+                                if ($record instanceof MenuItem) {
+                                    $media = $record->getFirstMedia('menu_images');
+                                    if ($media) {
+                                        try {
+                                            $url = $media->getFullUrl();
+                                        } catch (\Throwable) {
+                                            $url = null;
+                                        }
+                                        if ($url !== null && $url !== '') {
+                                            return [
+                                                'name' => $media->file_name,
+                                                'size' => (int) $media->size,
+                                                'type' => $media->mime_type ?? 'image/jpeg',
+                                                'url' => $url,
+                                            ];
+                                        }
+                                    }
+                                }
+
+                                return null;
+                            })
                             ->helperText('Single image. Accepted: jpg, png, gif, webp.'),
                     ]),
             ]);
@@ -112,7 +146,7 @@ class MenuItemResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('image')
-                    ->getStateUsing(fn (MenuItem $record) => $record->getFirstMediaUrl('menu_images', 'thumb') ?: null)
+                    ->getStateUsing(fn (MenuItem $record) => $record->getFirstMediaUrl('menu_images', 'thumb') ?: $record->getFirstMediaUrl('menu_images') ?: null)
                     ->circular()
                     ->defaultImageUrl(fn ($record) => 'https://ui-avatars.com/api/?name='.urlencode($record->name ?? '').'&size=64'),
                 Tables\Columns\TextColumn::make('name')
